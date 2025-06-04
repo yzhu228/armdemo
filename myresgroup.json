@@ -19,29 +19,9 @@
                 },
                 "mode": "Incremental",
                 "parameters": {},
-                "template": {
-                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
-                    "contentVersion": "1.0.0.0",
-                    "resources": [
-                        {
-                            "name": "[concat(copyIndex(), 'mysandbox', uniqueString(resourceGroup().id))]",
-                            "type": "Microsoft.Storage/storageAccounts",
-                            "apiVersion": "2023-05-01",
-                            "tags": {
-                                "displayName": "mysandbox"
-                            },
-                            "location": "[resourceGroup().location]",
-                            "kind": "StorageV2",
-                            "sku": {
-                                "name": "Premium_LRS",
-                                "tier": "Premium"
-                            },
-                            "copy":{
-                                "name": "storageAccountCopy",
-                                "count": 3
-                            }
-                        }
-                    ]
+                "templateLink": {
+                    "uri": "https://github.com/yzhu228/armdemo/blob/main/stgaccount.json",
+                    "contentVersion": "1.0,0.0"
                 }
             }
         }
