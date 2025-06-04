@@ -1,0 +1,49 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "resources": [
+        {
+            "type": "Microsoft.Resources/resourceGroups",
+            "apiVersion": "2024-08-01",
+            "name": "mySandboxResourceGroup",
+            "location": "australiaeast"
+        },
+        {
+            "name": "nestedDeployment1",
+            "type": "Microsoft.Resources/deployments",
+            "apiVersion": "2024-07-01",
+            "resourceGroup": "mySandboxResourceGroup",
+            "properties": {
+                "expressionEvaluationOptions": {
+                    "scope": "inner"
+                },
+                "mode": "Incremental",
+                "parameters": {},
+                "template": {
+                    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+                    "contentVersion": "1.0.0.0",
+                    "resources": [
+                        {
+                            "name": "[concat(copyIndex(), 'mysandbox', uniqueString(resourceGroup().id))]",
+                            "type": "Microsoft.Storage/storageAccounts",
+                            "apiVersion": "2023-05-01",
+                            "tags": {
+                                "displayName": "mysandbox"
+                            },
+                            "location": "[resourceGroup().location]",
+                            "kind": "StorageV2",
+                            "sku": {
+                                "name": "Premium_LRS",
+                                "tier": "Premium"
+                            },
+                            "copy":{
+                                "name": "storageAccountCopy",
+                                "count": 3
+                            }
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
