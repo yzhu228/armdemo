@@ -13,15 +13,17 @@
             "type": "Microsoft.Resources/deployments",
             "apiVersion": "2024-07-01",
             "resourceGroup": "mySandboxResourceGroup",
+            "dependsOn": [
+                "[resourceId('Microsoft.Resources/resourceGroups', 'mySandboxResourceGroup')]"
+            ],
             "properties": {
                 "expressionEvaluationOptions": {
                     "scope": "inner"
                 },
                 "mode": "Incremental",
-                "parameters": {},
                 "templateLink": {
-                    "uri": "https://github.com/yzhu228/armdemo/blob/main/stgaccount.json",
-                    "contentVersion": "1.0,0.0"
+                    "uri": "https://raw.githubusercontent.com/yzhu228/armdemo/refs/heads/main/stgaccount.json",
+                    "contentVersion": "1.0.0.0"
                 }
             }
         }
